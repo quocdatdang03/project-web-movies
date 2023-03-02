@@ -1,0 +1,24 @@
+.slider-container-img {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: "";
+    border-radius: 30px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: all ease 0.2s;
+  }
+
+  &:hover::after {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+}
+.slider-container-btn {
+  transform: translate(-50%, -50%) scale(0);
+  transition: all linear 0.2s;
+}
+
+.slider-container-img:hover .slider-container-btn {
+  transform: translate(-50%, -50%) scale(1);
+}

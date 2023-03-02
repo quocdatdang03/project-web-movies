@@ -10,7 +10,8 @@ const axiosClient = axios.create({
     "content-type": "application/json",
   },
   // paramsSerializer : quy định các params (tham số) nối sau URL
-  paramsSerializer: (params) => queryString.stringify(params),
+  // paramsSerializer: (params) =>
+  //   queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
 });
 
 // interceptor (đánh chặn) : xử lý trước khi nhận dữ liệu từ api, hay gửi dữ liệu đi :

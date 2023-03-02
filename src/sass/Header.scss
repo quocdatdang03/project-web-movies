@@ -1,0 +1,20 @@
+.category-btn {
+  position: relative;
+
+  &.active::after,
+  &:hover::after {
+    width: 100%;
+  }
+  &::after {
+    content: "";
+    bottom: -8px;
+    left: 50%;
+    width: 0px;
+    transform: translateX(-50%);
+    position: absolute;
+    background-color: #ff0000;
+    height: 2px;
+    border-radius: 9999px;
+    transition: all linear 0.3s;
+  }
+}
