@@ -7,10 +7,10 @@ const SliderBannerItem = ({ item }) => {
   return (
     <div
       key={item.id}
-      className={`w-full h-[500px] lg:h-screen cursor-grab bg-no-repeat bg-cover bg-center flex items-center justify-center text-white slider-banner`}
+      className={`w-full h-[500px] lg:h-[calc(100vh+150px)] cursor-grab bg-no-repeat bg-cover bg-center flex items-center justify-center text-white slider-banner`}
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="flex items-center justify-center pt-[20px] lg:pt-[144px]">
+      <div className="flex items-center justify-center pt-[20px] lg:pt-0">
         <div className="px-[48px] flex-1 z-[10]">
           <h1 className="text-[38px] sm:text-[51px] lg:text-[80px] font-bold lg:leading-[80px]">
             {item.original_title}

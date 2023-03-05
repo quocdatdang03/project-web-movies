@@ -30,5 +30,20 @@ const theMovieApi = {
     const url = category[cate] + "/" + id;
     return axiosClient.get(url, params);
   },
+  // get Casts:
+  getCredits: (cate, id, params) => {
+    const url = category[cate] + "/" + id + "/credits";
+    return axiosClient.get(url, params);
+  },
+  // get videos :
+  getVideos: (cate, id, params) => {
+    const url = category[cate] + "/" + id + "/videos";
+    return axiosClient.get(url, params);
+  },
+  // get similar :
+  getSimilar: (cate, id, params) => {
+    const url = category[cate] + "/" + id + "/similar";
+    return axiosClient.get(url, params);
+  },
 };
 export default theMovieApi;

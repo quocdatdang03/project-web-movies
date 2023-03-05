@@ -1,0 +1,12 @@
+.movie-banner {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    height: 150px;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(to top, #0f0f0f, rgba(0, 0, 0, 0));
+  }
+}

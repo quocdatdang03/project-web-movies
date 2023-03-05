@@ -25,6 +25,7 @@ const Button = ({ type, text, id, customClass, size, onClick }) => {
               ? "font-semibold px-[24px] py-[4px] text-white rounded-[9999px] transition-all duration-300"
               : "btn-slider"
           } bg-transparent border-[3px] border-white hover:text-[#ff0000]  hover:bg-white ml-[20px]`}
+          onClick={onClick}
         >
           {text}
         </button>

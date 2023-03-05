@@ -10,11 +10,11 @@ const publicRoutes = [
   },
   {
     component: Movies,
-    path: "/movies",
+    path: "/:category",
   },
   {
     component: TvSeries,
-    path: "/tvseries",
+    path: "/tv",
   },
   {
     component: Detail,

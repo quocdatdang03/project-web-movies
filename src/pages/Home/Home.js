@@ -11,21 +11,13 @@ const Home = () => {
       <SliderBanner />
       {/* End Slider */}
       {/* Start Container */}
-      <SliderContainer
-        title="Trending Movies"
-        type="popular"
-        category="movie"
-      />
+      <SliderContainer title="Trending Movies" type="popular" cate="movie" />
 
-      <SliderContainer
-        title="Top Rated Movies"
-        type="top_rated"
-        category="movie"
-      />
+      <SliderContainer title="Top Rated Movies" type="top_rated" cate="movie" />
 
-      <SliderContainer title="Trending TV" type="popular" category="tv" />
+      <SliderContainer title="Trending TV" type="popular" cate="tv" />
 
-      <SliderContainer title="Top Rated TV" type="top_rated" category="tv" />
+      <SliderContainer title="Top Rated TV" type="top_rated" cate="tv" />
 
       {/* End Container */}
     </div>

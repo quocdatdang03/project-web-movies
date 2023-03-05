@@ -1,12 +1,21 @@
 .slider-banner {
   position: relative;
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
     background-color: rgba(0, 0, 0, 0.6);
     top: 0;
     width: 100%;
     height: 100%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background-image: linear-gradient(to top, #0f0f0f, rgba(0, 0, 0, 0));
   }
 }

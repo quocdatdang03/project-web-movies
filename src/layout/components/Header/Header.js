@@ -13,11 +13,11 @@ const categoryPages = [
   },
   {
     title: "Movies",
-    to: "/movies",
+    to: "/movie",
   },
   {
     title: "TvSeries",
-    to: "/tvseries",
+    to: "/tv",
   },
 ];
 
