@@ -1,7 +1,6 @@
 import Detail from "../pages/Detail";
 import Home from "../pages/Home/Home";
-import Movies from "../pages/Movies";
-import TvSeries from "../pages/TvSeries";
+import CatePage from "../pages/CatePage";
 
 const publicRoutes = [
   {
@@ -9,13 +8,13 @@ const publicRoutes = [
     path: "/",
   },
   {
-    component: Movies,
+    component: CatePage,
     path: "/:category",
   },
-  {
-    component: TvSeries,
-    path: "/tv",
-  },
+  // {
+  //   component: TvSeries,
+  //   path: "/tv",
+  // },
   {
     component: Detail,
     path: "/:category/:id",

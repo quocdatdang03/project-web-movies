@@ -13,7 +13,7 @@ const Button = ({ type, text, id, customClass, size, onClick }) => {
           className={`btn-slider bg-[#ff0000] shadow-btn-shadow hover:shadow-btn-shadow-hover ${
             customClass &&
             "absolute top-[50%] left-[50%] z-[10] slider-container-btn"
-          }`}
+          } ${size === "small" && "text-[16px] px-[24px] py-[4px]"}`}
           onClick={onClick ? onClick : handleNavigateToDetail}
         >
           {text}

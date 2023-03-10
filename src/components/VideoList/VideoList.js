@@ -57,8 +57,8 @@ const VideoItem = ({ id, name, keyVideo }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [heightVideo]);
   return (
-    <li key={id}>
-      <h1 className="text-[24px] font-bold text-white">{name}</h1>
+    <li key={id} className="mt-[50px]">
+      <h1 className="text-[24px] font-bold text-white mb-[20px]">{name}</h1>
       <iframe
         src={`https://www.youtube.com/embed/${keyVideo}`}
         width="100%"

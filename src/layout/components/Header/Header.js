@@ -49,6 +49,8 @@ const Header = () => {
               <NavLink
                 key={index}
                 to={item.to}
+                end // props end của NavLink nó sẽ chỉ định active matching hoàn toàn vs cái url của to, vd ta to="/movie" mà khi ấn vào page detail có path là "/movie/123" thì nếu không có props end nó vẫn matching và active cái NavLink đó lên ==> không hợp lý
+                // Vì thế thêm props end để NavLink chỉ active khi url trong to khớp hoàn toàn vs 1 path nào đó
                 className={({ isActive }) =>
                   isActive
                     ? "btn-menu text-[#ff0000] active category-btn"
