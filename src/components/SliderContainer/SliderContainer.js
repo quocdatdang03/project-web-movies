@@ -105,6 +105,7 @@ const SliderContainer = ({ title, cate, type, id }) => {
                 title={item.title}
                 name={item.name}
                 cate={cate}
+                isActive={false}
               />
             );
           })}

@@ -1,49 +1,62 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import apiConfig from "../../api/apiConfig";
 import theMovieApi, { movieType, tvType } from "../../api/theMovieApi";
 import images from "../../assets/images/images";
 import Button from "../../components/Button/Button";
+import MovieSearch from "../../components/MovieSearch";
 import SlideContainerItem from "../../components/SliderContainerItem/SliderContainerItem";
 import SpinnerLoader from "../../components/SpinnerLoader";
 import "../../sass/Movies.scss";
 
 const CatePage = () => {
   const [list, setList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const [loadMorePage, setLoadMorePage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const { category } = useParams();
+  const { category, keyword } = useParams();
   // get api :
   useEffect(() => {
     const getList = async () => {
       setLoading(true);
-      const params = { api_key: apiConfig.apiKey };
-      let response;
-      switch (category) {
-        case "movie":
-          response = await theMovieApi.getMoviesList(movieType["upcoming"], {
-            params,
-          });
-          break;
-        case "tv":
-          response = await theMovieApi.getTvList(tvType["popular"], {
-            params,
-          });
-          break;
-        default:
-          return;
+      let response = null;
+      if (keyword === undefined) {
+        const params = { api_key: apiConfig.apiKey };
+        switch (category) {
+          case "movie":
+            response = await theMovieApi.getMoviesList(movieType["upcoming"], {
+              params,
+            });
+            break;
+          case "tv":
+            response = await theMovieApi.getTvList(tvType["popular"], {
+              params,
+            });
+            break;
+          default:
+            return;
+        }
+      } else {
+        const params = { api_key: apiConfig.apiKey, query: keyword };
+        response = await theMovieApi.searchKeyword(category, { params });
+        console.log(response);
       }
 
       // const datas = [...list, ...response.results]; // giải mảng cũ và mảng mới load từ api vào biến datas
       const datas = response.results;
       setList(datas);
       setLoading(false);
+
+      // get total pages :
+      setTotalPage(response.total_pages);
     };
 
     getList();
-  }, [category]);
+  }, [category, keyword]);
 
   console.log(list);
 
@@ -52,25 +65,38 @@ const CatePage = () => {
     try {
       setLoadMorePage((prev) => prev + 1);
       setLoading(true);
-      const params = { page: loadMorePage, api_key: apiConfig.apiKey };
-      let response;
-      if (category === "movie") {
-        response = await theMovieApi.getMoviesList(movieType["upcoming"], {
-          params,
-        });
-      } else if (category === "tv") {
-        response = await theMovieApi.getTvList(tvType["popular"], { params });
+      let response = null;
+      if (keyword === undefined) {
+        const params = {
+          page: loadMorePage,
+          api_key: apiConfig.apiKey,
+        };
+        if (category === "movie") {
+          response = await theMovieApi.getMoviesList(movieType["upcoming"], {
+            params,
+          });
+        } else if (category === "tv") {
+          response = await theMovieApi.getTvList(tvType["popular"], { params });
+        }
+      } else {
+        const params = {
+          page: loadMorePage,
+          api_key: apiConfig.apiKey,
+          query: keyword,
+        };
+        response = await theMovieApi.searchKeyword(category, { params });
       }
       console.log(response);
       setList([...list, ...response.results]);
       setLoading(false);
+      setCurrentPage(response.page);
     } catch (error) {
       console.log("Error: " + error);
     }
   };
 
   return (
-    <div>
+    <div className="">
       <div
         className="w-full h-[50vh] bg-cover bg-center movie-banner flex items-center justify-center"
         style={{ backgroundImage: `url(${images.footerBg})` }}
@@ -81,47 +107,54 @@ const CatePage = () => {
       </div>
       <div className="px-[32px]">
         {/* Start Search */}
-        <div className="px-[32px] mb-[48px]">
-          <div className="max-w-[500px] flex items-center rounded-[9999px] py-[4px] pl-[24px] bg-[#000000] relative">
-            <input
-              className="w-full bg-transparent outline-none text-white mr-[5px]"
-              type="text"
-              placeholder="Enter keyword"
-            />
-            <Button type="primary" text="Search" size="small" />
-          </div>
-        </div>
+        <MovieSearch category={category} />
         {/* End Search */}
         {/* start movie list */}
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-6 gap-[10px]">
-          {list?.map((item, index) => {
-            return (
-              <li key={index}>
-                <SlideContainerItem
-                  key={index}
-                  id={item.id}
-                  img={item.poster_path}
-                  title={item.title}
-                  name={item.name}
-                  cate={category}
-                  list
-                />
-              </li>
-            );
-          })}
+        <ul
+          className={`${
+            list.length > 0
+              ? "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-6 gap-[10px]"
+              : "flex"
+          }`}
+        >
+          {list.length > 0
+            ? list?.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <SlideContainerItem
+                      key={index}
+                      id={item.id}
+                      img={item.poster_path}
+                      title={item.title}
+                      name={item.name}
+                      cate={category}
+                      list
+                      isActive={false}
+                    />
+                  </li>
+                );
+              })
+            : !loading && (
+                <h1 className="text-white font-bold text-[30px] w-full text-center">
+                  Sorry but nothing matched with search items
+                </h1>
+              )}
         </ul>
-        <div className="flex justify-center mt-[30px]">
-          {loading ? (
-            <SpinnerLoader />
-          ) : (
-            <Button
-              type="outline"
-              size="small"
-              text="Load more"
-              onClick={handleSetLoadMore}
-            />
-          )}
-        </div>
+        {/* Nếu mà còn page thì cho hiển thị button Load more */}
+        {currentPage < totalPage && (
+          <div className="flex justify-center mt-[30px]">
+            {loading ? (
+              <SpinnerLoader />
+            ) : (
+              <Button
+                type="outline"
+                size="small"
+                text="Load more"
+                onClick={handleSetLoadMore}
+              />
+            )}
+          </div>
+        )}
         {/* End movie list */}
       </div>
     </div>

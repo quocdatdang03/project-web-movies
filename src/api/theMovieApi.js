@@ -45,5 +45,10 @@ const theMovieApi = {
     const url = category[cate] + "/" + id + "/similar";
     return axiosClient.get(url, params);
   },
+  // search keyword :
+  searchKeyword: (cate, params) => {
+    const url = "search/" + category[cate];
+    return axiosClient.get(url, params);
+  },
 };
 export default theMovieApi;

@@ -5,6 +5,8 @@ import Context from "./Context";
 
 const Provider = ({ children }) => {
   const [fixedHeader, setFixedHeader] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showCategory, setShowCategory] = useState(false);
 
   useEffect(() => {
     const scrollHeader = () => {
@@ -24,6 +26,10 @@ const Provider = ({ children }) => {
   // values :
   const values = {
     fixedHeader,
+    setShowOverlay,
+    showOverlay,
+    showCategory,
+    setShowCategory,
   };
   return <Context.Provider value={values}>{children}</Context.Provider>;
 };
