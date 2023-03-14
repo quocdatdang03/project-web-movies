@@ -10,6 +10,7 @@ import {
   removeFromFavorite,
 } from "../../pages/FavoritePage/favoriteSlice";
 import Button from "../Button/Button";
+import "../../sass/SliderContainerItem.scss";
 
 const SlideContainerItem = ({ id, img, title, name, cate, list, isActive }) => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const SlideContainerItem = ({ id, img, title, name, cate, list, isActive }) => {
         />
       </div>
       <div className="flex items-center justify-between">
-        <h2 className="text-[11px] sm:text-[15px] lg:text-[19px] text-white font-bold group-hover:text-[#ff0000] transition-colors duration-300">
+        <h2 className="text-[11px] sm:text-[15px] lg:text-[19px] text-white font-bold group-hover:text-[#ff0000] transition-colors duration-300 film-title min-h-[57px]">
           {title || name}
         </h2>
         {isActive ? (

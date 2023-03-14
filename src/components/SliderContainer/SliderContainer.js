@@ -75,7 +75,7 @@ const SliderContainer = ({ title, cate, type, id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="px-[32px]">
+    <div className="px-[32px] mt-[50px]">
       <div className="mb-[32px] flex items-center justify-between">
         {categoryType.length > 0 && (
           <h1 className="text-white text-[24px] font-bold ">{title}</h1>

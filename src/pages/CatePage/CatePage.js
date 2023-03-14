@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AiOutlineDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const CatePage = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [loadMorePage, setLoadMorePage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [showBoxFilter, setShowBoxFilter] = useState(false);
 
   const { category, keyword } = useParams();
   // get api :
@@ -95,6 +97,42 @@ const CatePage = () => {
     }
   };
 
+  const filterCategories = [
+    {
+      name: "animation",
+    },
+    {
+      name: "horror",
+    },
+    {
+      name: "family",
+    },
+    {
+      name: "comedy",
+    },
+    {
+      name: "romance",
+    },
+    {
+      name: "mystery",
+    },
+    {
+      name: "crime",
+    },
+    {
+      name: "documentary",
+    },
+    {
+      name: "history",
+    },
+    {
+      name: "war",
+    },
+    {
+      name: "thriller",
+    },
+  ];
+
   return (
     <div className="">
       <div
@@ -109,6 +147,49 @@ const CatePage = () => {
         {/* Start Search */}
         <MovieSearch category={category} />
         {/* End Search */}
+        {/* Start Filter */}
+        <div>
+          <div className=" relative">
+            <button
+              className="text-white flex items-center font-semibold"
+              onClick={() => setShowBoxFilter(!showBoxFilter)}
+            >
+              <h2 className="text-[20px] pr-[5px]">Filter</h2>
+              <AiOutlineDown
+                className={`${
+                  showBoxFilter ? "rotate-180" : "rotate-0"
+                } transition-all duration-200`}
+              />
+            </button>
+            <div
+              className={`bg-slate-400 absolute top-[110%] z-[100] ${
+                showBoxFilter
+                  ? "translate-y-[0] opacity-1 visible"
+                  : "translate-y-[100px] opacity-0 invisible"
+              } transition-all duration-300`}
+            >
+              {filterCategories?.map((item, index) => {
+                return (
+                  <div className="text-white" key={index}>
+                    <label
+                      className="first-letter:uppercase"
+                      htmlFor={item.name}
+                    >
+                      {item.name}
+                    </label>
+                    <input
+                      key={index}
+                      id={item.name}
+                      type="checkbox"
+                      value={item.name}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        {/* End Filter */}
         {/* start movie list */}
         <ul
           className={`${
